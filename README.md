@@ -1,2 +1,8 @@
-# Laboratorio-3-DOSW
-Project for Lab03
+# 📝 Laboratorio 03 –
+
+**Integrantes:**
+- Daniel Eduardo Useche
+- Jared Farfan
+
+**Nombre de la rama:**  
+-- A cambiar nombre
