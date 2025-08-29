@@ -2,7 +2,8 @@
 
 **Integrantes:**
 - Daniel Eduardo Useche
-- Jared Farfan
+- Marianella Polo Peña
+- Sebastian Duque Ceballos
 
 **Nombre de la rama:**  
--- A cambiar nombre
+- feature-UsecheDaniel-PoloMarianella-DuqueSebastian-2025-2
