@@ -78,3 +78,29 @@ H.	Menciona los valores de Scrum y explica cual consideras más difícil de apli
 Valores de Scrum: Compromiso, Coraje, Enfoque, Respeto, Apertura.
 
 La apertura suele ser complicada, especialmente en equipos donde no hay confianza para expresar problemas, errores o desacuerdos sin miedo a represalias o juicios.
+
+## Parte 2 - Hora del codigo
+
+RETO #1: Identificando los Requerimientos
+
+1. Reglas de negocio:
+    - Los números de cuenta deben tener exactamente 10 dígitos.
+    - Los dos primeros dígitos corresponden a un banco registrado (ejemplo: 01 BANCOLOMBIA, 02 DAVIVIENDA).
+    - Las cuentas no pueden contener letras ni caracteres especiales.
+    - Solo se pueden crear cuentas para bancos registrados.
+
+2. Funcionalidades principales:
+    - Crear cuentas bancarias para clientes.
+    - Validar cuentas bancarias.
+    - Consultar el saldo de una cuenta.
+    - Realizar depósitos en cuentas. 
+
+3. Actores principales:
+    - Cliente: Persona que solicita la creación y gestión de su cuenta bancaria.
+    - Administrador del sistema: Encargado de registrar bancos y supervisar el sistema.
+    - Sistema Bankify: Plataforma que gestiona las cuentas y operaciones.
+
+4. Precondiciones del sistema:
+    - Deben existir bancos registrados en el sistema.
+    - El cliente debe proporcionar un número de cuenta válido (10 dígitos, sin letras ni caracteres especiales, con     prefijo de banco registrado).
+    - El sistema debe estar operativo y con acceso a la base de datos de cuentas y bancos.
