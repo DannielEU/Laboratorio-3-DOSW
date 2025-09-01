@@ -104,3 +104,26 @@ RETO #1: Identificando los Requerimientos
     - Deben existir bancos registrados en el sistema.
     - El cliente debe proporcionar un número de cuenta válido (10 dígitos, sin letras ni caracteres especiales, con     prefijo de banco registrado).
     - El sistema debe estar operativo y con acceso a la base de datos de cuentas y bancos.
+
+RETO #2: Diseñando 
+
+1. Diagrama de contexto 
+    ![Diagrama](docs/imagenes/Parte2/Reto2/Diagrama.png)
+2.  
+    Diagrama en el UML Astah
+    ![UML](docs/UML/Diagrama_Reto2.asta)
+3.  
+    En el Diagrama UML Astah
+    ![UML](docs/UML/Diagrama_Reto2.asta)
+
+4.  
+    Excel: https://pruebacorreoescuelaingeduco-my.sharepoint.com/:x:/g/personal/daniel_useche-p_mail_escuelaing_edu_co/EXwmiUbyXE9HpY_ldCG-0y8Bi08Xq9ACYgLY-LP8ZO_M0g?e=FbHehn
+5.  
+    En el Diagrama UML Astah
+    ![UML](docs/UML/Diagrama_Reto2.asta)
+
+RETO #3 
+    Codigo en la carpeta 
+    ![Code](docs/Planning_Poker)
+
+    Evidencia de equipo: (Por hacer)
