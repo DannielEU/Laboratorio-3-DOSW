@@ -2,36 +2,37 @@ package edu.dosw.lab.Laboratorio_3_DOSW;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class Cuenta {
-    private List<Transaccion> historial = new ArrayList<>();
+    public class Cuenta {
+    private double saldo;
     private  final String nCuenta;
-    private double saldo = 0;
+    private List<Transaccion> historial = new ArrayList<>();
 
     public Cuenta(String nCuenta) {
+        this.saldo = 0;
         this.nCuenta = nCuenta;
     }
-
-    public List<Transaccion> revisarHistorial() {
-        return null;
-    }
-    public void agregarTransaccion(Transaccion transaccion){
-        this.historial.add(transaccion);
-    }
-    public boolean validarNumeroDeCuenta(){
-        return false;
+    public String getNumeroCuenta() {
+        return this.nCuenta;
     }
     public double consultarSaldo(){
         return this.saldo;
     }
-    public void retirar(double monto){
-        this.saldo -= monto;
+
+    public void disminuirSaldo(double monto) {
+        if (saldo >= monto) {
+            saldo -= monto;
+        } else {
+            System.out.println("Fondos insuficientes.");
+        }
     }
-    public void depositar(double monto){
+    public void AumentarSaldo(double monto){
         this.saldo += monto;
     }
-
-    public String getNumeroCuenta() {
-        return this.nCuenta;
+    public void agregarTransaccion(Transaccion t) {
+        historial.add(t);
     }
+    public List<Transaccion> revisarHistorial() {
+        return  historial;
+    }
+
 }

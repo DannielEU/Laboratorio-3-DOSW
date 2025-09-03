@@ -14,6 +14,16 @@ public class Bankify {
     public Cliente crearCliente(int id, String nombre) {
         return new Cliente(id, nombre);
     }
+
+    public void RegistrarCliente(int id, String nombre, Cuenta cuenta) {
+        Cliente cliente = this.crearCliente(id,nombre);
+        this.agregarCuentaACliente(cliente, cuenta);
+    }
+    public void nuevaCuentaClienteAntiguo(int id, Cuenta cuenta) {
+        this.buscarClientePorId(id)
+                .ifPresent(c -> c.agregarCuenta(cuenta));
+    }
+
     public boolean verificarCuenta(Cuenta cuenta) {
         return this.bancos.stream()
                 .anyMatch(banco -> banco.verificarCuenta(cuenta));
@@ -26,12 +36,9 @@ public class Bankify {
         cliente.agregarCuenta(cuenta);
     }
 
-
-
     public List<Cuenta> listarCuentasCliente(Cliente cliente) {
         return cliente.listarCuentas();
     }
-
 
     public double consultarSaldo(Cliente cliente, String numeroCuenta) {
         Cuenta cuenta = buscarCuentaPorNumero(cliente, numeroCuenta)
@@ -43,22 +50,34 @@ public class Bankify {
     public void realizarDeposito(Cliente cliente, String numeroCuenta, double monto) {
         Cuenta cuenta = buscarCuentaPorNumero(cliente, numeroCuenta)
                 .orElseThrow(() -> new IllegalArgumentException("Cuenta no encontrada"));
-        cuenta.depositar(monto);
+        Deposito deposito = new Deposito(cuenta, monto);
+        deposito.ejecutar();
+        cuenta.agregarTransaccion(deposito);
+    }
+
+    public void realizarConsulta(Cliente cliente, String numeroCuenta) {
+        Cuenta cuenta = buscarCuentaPorNumero(cliente, numeroCuenta)
+                .orElseThrow(() -> new IllegalArgumentException("Cuenta no encontrada"));
+        Consulta consulta = new Consulta(cuenta);
+        consulta.ejecutar();
+        cuenta.agregarTransaccion(consulta);
     }
 
 
     public void realizarRetiro(Cliente cliente, String numeroCuenta, double monto) {
         Cuenta cuenta = buscarCuentaPorNumero(cliente, numeroCuenta)
                 .orElseThrow(() -> new IllegalArgumentException("Cuenta no encontrada"));
-        cuenta.retirar(monto);
+        Retiro retiro = new Retiro(cuenta, monto);
+        retiro.ejecutar();
+        cuenta.agregarTransaccion(retiro);
     }
 
 
 
     public List<Transaccion> revisarHistorial(Cliente cliente, String numeroCuenta) {
-        return buscarCuentaPorNumero(cliente, numeroCuenta)
-                .map(Cuenta::revisarHistorial)
+        Cuenta cuenta = buscarCuentaPorNumero(cliente, numeroCuenta)
                 .orElseThrow(() -> new IllegalArgumentException("Cuenta no encontrada"));
+        return cuenta.revisarHistorial();
     }
 
 
@@ -90,7 +109,6 @@ public class Bankify {
     public void agregarBanco(Banco nuevoBanco) {
         this.bancos.add(nuevoBanco);
     }
-
 
 }
 

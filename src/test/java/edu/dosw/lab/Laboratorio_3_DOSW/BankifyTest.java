@@ -2,6 +2,7 @@ package edu.dosw.lab.Laboratorio_3_DOSW;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 public class BankifyTest {
 
     private Bankify bankify;
@@ -74,7 +75,8 @@ public class BankifyTest {
     @Test
     public void testConsultarSaldoCuentaExistente() {
         cliente1.agregarCuenta(cuenta1);
-        cuenta1.depositar(500.0);
+        Deposito deposito = new Deposito(cuenta1,500.0);
+        deposito.ejecutar();
 
         double saldo = bankify.consultarSaldo(cliente1, cuenta1.getNumeroCuenta());
         assertEquals(500.0, saldo);
@@ -106,7 +108,7 @@ public class BankifyTest {
     @Test
     public void testRealizarRetiro() {
         cliente1.agregarCuenta(cuenta1);
-        cuenta1.depositar(500.0);
+        bankify.realizarDeposito(cliente1, cuenta1.getNumeroCuenta(), 500.0);
         bankify.realizarRetiro(cliente1, cuenta1.getNumeroCuenta(), 300.0);
         assertEquals(200.0, cuenta1.consultarSaldo());
     }
@@ -170,4 +172,21 @@ public class BankifyTest {
         assertTrue(bancoOpt.isPresent());
         assertEquals("Banco Tres", bancoOpt.get().getNombre());
     }
+    @Test
+    public void testRevisarHistorial() {
+        cliente1.agregarCuenta(cuenta1);
+        bankify.realizarDeposito(cliente1, cuenta1.getNumeroCuenta(), 500.0);
+        bankify.realizarRetiro(cliente1, cuenta1.getNumeroCuenta(), 300.0);
+        bankify.realizarDeposito(cliente1, cuenta1.getNumeroCuenta(), 900.0);
+        bankify.realizarConsulta(cliente1,cuenta1.getNumeroCuenta());
+        bankify.realizarRetiro(cliente1, cuenta1.getNumeroCuenta(), 200.0);
+        bankify.realizarConsulta(cliente1,cuenta1.getNumeroCuenta());
+        bankify.revisarHistorial(cliente1, cuenta1.getNumeroCuenta())
+                .stream()
+                .map(Transaccion::informe)
+                .forEach(System.out::println);
+
+        assertNotNull(bankify.revisarHistorial(cliente1, cuenta1.getNumeroCuenta()));
+    }
+
 }

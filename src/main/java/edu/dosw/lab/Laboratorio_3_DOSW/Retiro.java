@@ -1,14 +1,26 @@
 package edu.dosw.lab.Laboratorio_3_DOSW;
+import java.time.LocalDateTime;
 
-public class Retiro implements Transaccion{
-    private int monto;
-    private String fecha;
-    @Override
-    public void ejecutar(Cuenta cuenta) {
+public class Retiro implements Transaccion {
+    private Cuenta cuenta;
+    private double monto;
+    private LocalDateTime fecha;
 
+    public Retiro(Cuenta cuenta, double monto) {
+        this.cuenta = cuenta;
+        this.monto = monto;
+        this.fecha = LocalDateTime.now();
     }
+
+    @Override
+    public void ejecutar() {
+        cuenta.disminuirSaldo(monto);
+    }
+
     @Override
     public String informe() {
-        return null;
+        return "Se hizo un retiro de: " + this.monto + " en la fecha, " + fecha;
     }
+
 }
+
