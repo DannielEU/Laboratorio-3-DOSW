@@ -127,3 +127,35 @@ RETO #3
     ![Code](docs/Planning_Poker)
 
     Evidencia de equipo: (Por hacer)
+
+## Reto #3 – Planning Poker (Consola)
+
+Se implementó una aplicación de consola en `reto3/` que permite estimar las historias identificadas en el Reto 2 usando Planning Poker.
+
+Características:
+- Carga las historias desde `reto3/stories.txt` (una por línea).
+- Pide la cantidad de integrantes y solicita los votos para cada historia.
+- Votos permitidos (secuencia Fibonacci acotada): 1,2,3,5,8,13.
+- Si todos votan igual: se asigna el puntaje y se avanza a la siguiente historia.
+- Si hay diferencias: muestra el mensaje “Votos divergentes – Discutan y vuelvan a votar” y repite la ronda.
+- Al final imprime un resumen de cada historia con su puntaje final.
+
+Ejecución (desde la raíz del proyecto, tras compilar con Maven o usando el wrapper):
+```
+./mvnw -q -DskipTests package
+java -cp target/classes edu.dosw.lab.Laboratorio_3_DOSW.reto3.PlanningPokerApp
+```
+En Windows PowerShell (ya incluido el wrapper):
+```
+./mvnw -q -DskipTests package
+java -cp target/classes edu.dosw.lab.Laboratorio_3_DOSW.reto3.PlanningPokerApp
+```
+El archivo de historias se encuentra en `src/main/resources/reto3/stories.txt` y se carga automáticamente desde el classpath.
+
+Patrón / Principio aplicado:
+- Se siguió el principio de Responsabilidad Única (SRP) separando claramente la carga de historias, la lectura de entradas y la lógica de consenso.
+- El diseño deja abierta la posibilidad de introducir diferentes estrategias de consenso (Strategy) si se necesitara soportar otras reglas (por ejemplo mayoría simple, promedio, descarte de extremos, etc.). Actualmente la estrategia implícita es "consenso unánime".
+
+Captura de ejemplo de votación:
+![Planning Poker Consola](docs/imagenes/Parte3/Reto3Example.jpeg)
+

@@ -1,0 +1,7 @@
+# Historias de usuario (Reto 2)
+Crear cuentas bancarias para clientes
+Validar cuentas bancarias
+Consultar saldo de una cuenta
+Realizar depósitos en cuentas
+Realizar retiros de una cuenta
+Generar reporte de transacciones
