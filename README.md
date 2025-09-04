@@ -314,7 +314,13 @@ Esto demuestra que una cobertura >85% requirió identificar código “no ejerci
 
 
 
-## Estructura básica del proyecto
+### justificacion del uso la estructura del proyecto  
+
+- Se optó por interfaces (p. ej. Transaccion) y un orquestador ligero (Bankify) para desacoplar la lógica de las operaciones de quien las invoca, permitiendo añadir nuevas transacciones sin tocar el resto; Bankify recibe dependencias por constructor e usa Streams/Optional para búsquedas y validaciones más concisas, mientras que Cliente/Cuenta/Banco mantienen responsabilidades claras (SRP) y gestionan estado e historial, lo que mejora la testabilidad (pueden mockearse contratos), reduce el acoplamiento y facilita la mantenibilidad y la extensión del sistema.
+
+
+
+## Estructura básica del proyecto (tree)
 
 ```
 Laboratorio-3-DOSW/
