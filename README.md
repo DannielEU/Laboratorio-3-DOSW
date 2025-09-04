@@ -156,73 +156,6 @@ Patrón / Principio aplicado:
 Captura de ejemplo de votación:
 ![Planning Poker Consola](docs/imagenes/Parte3/Reto3Example.jpeg)
 
-## ✅ Ejecutar Pruebas
-
-Para ejecutar todas las pruebas (unitarias, funcionales y de verificación del README):
-
-```
-./mvnw test
-```
-
-En PowerShell (Windows):
-
-```
-./mvnw test
-```
-
-Si deseas omitir la instrumentación de cobertura (actualmente Jacoco está desactivado por incompatibilidad con JDK 24), asegúrate de que en el `pom.xml` la propiedad:
-
-```
-<jacoco.skip>true</jacoco.skip>
-```
-
-Cuando trabajes con JDK 17 puedes cambiarla a `false` para generar el informe de cobertura.
-
-## 📊 Cobertura de Código (JaCoCo)
-
-Se configuró JaCoCo con un umbral mínimo de 85% de instrucciones cubiertas. El reporte se genera en `target/site/jacoco/index.html` al ejecutar:
-
-```
-./mvnw clean verify
-```
-
-### Cobertura Inicial (Antes de agregar pruebas nuevas)
-
-- Instrucciones cubiertas: 58% (falló la regla >85%).
-- Paquete `edu.dosw.lab.Laboratorio_3_DOSW.reto3` sin cobertura (0%).
-- Imagen (captura inicial): `docs/imagenes/Parte1/Jacoco.jpeg` (o agregar nueva captura) 
-
-### Mejora Aplicada
-
-Se añadieron pruebas específicas para:
-- Transacciones (`Deposito`, `Retiro`, `Consulta`) validando `ejecutar()` e `informe()`.
-- Aplicación Planning Poker (`PlanningPokerApp`) simulando entrada de usuario y casos de validación de input.
-
-### Cobertura Final (Después de nuevas pruebas)
-
-Fragmento del reporte final (`index.html`):
-
-```
-Total Instrucciones: 683
-Instrucciones No Cubiertas: 79
-Cobertura Instrucciones: 88%
-Cobertura Branches: 78%
-Paquete base: 87% instrucciones
-Paquete reto3: 90% instrucciones
-```
-
-Se superó el umbral (BUILD SUCCESS).
-
-### Reflexión sobre los Casos Añadidos
-
-Los primeros tests ignoraban comportamiento “periférico” pero importante: 
-1. Métodos concretos de las implementaciones de `Transaccion` (solo se ejercitaban indirectamente algunas rutas de `Deposito` y `Retiro`, sin validar el `informe()` ni la actualización temporal de `Consulta`).
-2. La lógica interactiva de `PlanningPokerApp` (parsing de entradas inválidas, consenso iterativo y carga de historias desde recursos). Al no cubrir estos flujos, casi un tercio del código quedaba invisible para JaCoCo.
-
-Al introducir pruebas de caja blanca y simulación de `System.in` se validaron rutas de error y repetición (entradas inválidas) elevando la complejidad cubierta y asegurando que futuros cambios en la interfaz de consola rompan las pruebas si alteran la experiencia esperada.
-
-Esto demuestra que una cobertura >85% requirió identificar código “no ejercitado” más allá de la lógica central (dominio bancario) y atender también utilidades de entrada/salida y reporting.
-
 
 ## Reto #4: Tiempo De Desarrollo
 
@@ -308,5 +241,117 @@ captura de pruebas al inicio del tdd
 captura de pruebas al final del desarrollo
 
 ![alt text](docs/imagenes/Parte4/Ciclo1/Green/img.png)
+
+
+
+## ✅ Ejecutar Pruebas
+
+Para ejecutar todas las pruebas (unitarias, funcionales y de verificación del README):
+
+```
+./mvnw test
+```
+
+En PowerShell (Windows):
+
+```
+./mvnw test
+```
+
+Si deseas omitir la instrumentación de cobertura (actualmente Jacoco está desactivado por incompatibilidad con JDK 24), asegúrate de que en el `pom.xml` la propiedad:
+
+```
+<jacoco.skip>true</jacoco.skip>
+```
+
+Cuando trabajes con JDK 17 puedes cambiarla a `false` para generar el informe de cobertura.
+
+## 📊 Cobertura de Código (JaCoCo)
+
+Se configuró JaCoCo con un umbral mínimo de 85% de instrucciones cubiertas. El reporte se genera en `target/site/jacoco/index.html` al ejecutar:
+
+```
+./mvnw clean verify
+```
+
+### Cobertura Inicial (Antes de agregar pruebas nuevas)
+
+- Instrucciones cubiertas: 58% (falló la regla >85%).
+- Paquete `edu.dosw.lab.Laboratorio_3_DOSW.reto3` sin cobertura (0%).
+- Imagen (captura inicial): `docs/imagenes/Parte1/Jacoco.jpeg` (o agregar nueva captura) 
+
+### Mejora Aplicada
+
+Se añadieron pruebas específicas para:
+- Transacciones (`Deposito`, `Retiro`, `Consulta`) validando `ejecutar()` e `informe()`.
+- Aplicación Planning Poker (`PlanningPokerApp`) simulando entrada de usuario y casos de validación de input.
+
+### Cobertura Final (Después de nuevas pruebas)
+
+Fragmento del reporte final (`index.html`):
+
+```
+Total Instrucciones: 683
+Instrucciones No Cubiertas: 79
+Cobertura Instrucciones: 88%
+Cobertura Branches: 78%
+Paquete base: 87% instrucciones
+Paquete reto3: 90% instrucciones
+```
+
+Se superó el umbral (BUILD SUCCESS).
+
+### Reflexión sobre los Casos Añadidos
+
+Los primeros tests ignoraban comportamiento “periférico” pero importante: 
+1. Métodos concretos de las implementaciones de `Transaccion` (solo se ejercitaban indirectamente algunas rutas de `Deposito` y `Retiro`, sin validar el `informe()` ni la actualización temporal de `Consulta`).
+2. La lógica interactiva de `PlanningPokerApp` (parsing de entradas inválidas, consenso iterativo y carga de historias desde recursos). Al no cubrir estos flujos, casi un tercio del código quedaba invisible para JaCoCo.
+
+Al introducir pruebas de caja blanca y simulación de `System.in` se validaron rutas de error y repetición (entradas inválidas) elevando la complejidad cubierta y asegurando que futuros cambios en la interfaz de consola rompan las pruebas si alteran la experiencia esperada.
+
+Esto demuestra que una cobertura >85% requirió identificar código “no ejercitado” más allá de la lógica central (dominio bancario) y atender también utilidades de entrada/salida y reporting.
+
+
+
+
+## Estructura básica del proyecto
+
+```
+Laboratorio-3-DOSW/
+├─ .mvn/
+├─ src/
+│  ├─ main/
+│  │  ├─ java/
+│  │  │  └─ edu/dosw/lab/Laboratorio_3_DOSW/
+│  │  │     ├─ Banco.java
+│  │  │     ├─ Bankify.java
+│  │  │     ├─ Cliente.java
+│  │  │     ├─ Cuenta.java
+│  │  │     ├─ Transaccion.java
+│  │  │     ├─ Deposito.java
+│  │  │     ├─ Retiro.java
+│  │  │     └─ Laboratorio3DoswApplication.java
+│  │  └─ resources/
+│  │     └─ reto3/
+│  │        └─ stories.txt
+│  └─ test/
+│     └─ java/
+│        └─ edu/dosw/lab/Laboratorio_3_DOSW/
+│           ├─ BankifyTest.java
+│           ├─ ClienteTest.java
+│           └─ CuentaTest.java
+├─ docs/
+│  └─ imagenes/ ...
+├─ pom.xml
+├─ README.md
+└─ target/
+
+```
+
+### Reflexión : ¿Por qué considera que es importante realizar pruebas a un software diseñado?
+
+#### Sebastian Duque Ceballos
+- Probar el sotware es necesario porque permite identificar errores que como desarrolladores no siempre notamos al programar. Estas pruebas actúan como una “red de seguridad” que evita que fallos pequeños se conviertan en problemas graves. También ayudan a documentar cómo debería comportarse el sistema, lo cual es útil para el equipo y para quienes lo mantengan más adelante.
+
 
 
