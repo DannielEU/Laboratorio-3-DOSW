@@ -30,8 +30,8 @@ public class BankifyTest {
     cuenta1 = new Cuenta("0012345678");
     cuenta2 = new Cuenta("0020000000");
 
-        banco1.agregarCuenta(cuenta1);  // Banco 1 tiene cuenta1
-        banco2.agregarCuenta(cuenta2);  // Banco 2 tiene cuenta2
+        banco1.agregarCuenta(cuenta1);  
+        banco2.agregarCuenta(cuenta2);  
 
         List<Cliente> clientes = new ArrayList<>(Arrays.asList(cliente1, cliente2));
         List<Banco> bancos = new ArrayList<>(Arrays.asList(banco1, banco2));
@@ -44,8 +44,7 @@ public class BankifyTest {
         assertNotNull(bankify);
     }
 
-    // Ya tienes tests para verificarCuenta, no los repito aquí
-
+   
     @Test
     public void testAgregarCuentaAClienteCuentaVerificada() {
 

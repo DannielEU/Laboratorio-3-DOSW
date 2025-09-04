@@ -107,20 +107,22 @@ RETO #1: Identificando los Requerimientos
 
 RETO #2: Diseñando 
 
-1. Diagrama de contexto 
+1.  Diagrama de contexto 
     ![Diagrama](docs/imagenes/Parte2/Reto2/Diagrama.png)
 2.  
-    Diagrama en el UML Astah
-    ![UML](docs/UML/Diagrama_Reto2.asta)
+    Diagrama de Casos de uso
+
+    ![UML](docs/UML/casosDeUso.png)
 3.  
     En el Diagrama UML Astah
-    ![UML](docs/UML/Diagrama_Reto2.asta)
+
+    [Diagrama](docs/UML/Diagrama%20Reto2.asta)
 
 4.  
     Excel: https://pruebacorreoescuelaingeduco-my.sharepoint.com/:x:/g/personal/daniel_useche-p_mail_escuelaing_edu_co/EXwmiUbyXE9HpY_ldCG-0y8Bi08Xq9ACYgLY-LP8ZO_M0g?e=FbHehn
 5.  
-    En el Diagrama UML Astah
-    ![UML](docs/UML/Diagrama_Reto2.asta)
+    En el Diagrama UML de clases
+    ![UML](docs/UML/clases.png)
 
 
 ## Reto #3 – Planning Poker (Consola)
@@ -220,4 +222,91 @@ Los primeros tests ignoraban comportamiento “periférico” pero importante:
 Al introducir pruebas de caja blanca y simulación de `System.in` se validaron rutas de error y repetición (entradas inválidas) elevando la complejidad cubierta y asegurando que futuros cambios en la interfaz de consola rompan las pruebas si alteran la experiencia esperada.
 
 Esto demuestra que una cobertura >85% requirió identificar código “no ejercitado” más allá de la lógica central (dominio bancario) y atender también utilidades de entrada/salida y reporting.
+
+
+## Reto #4: Tiempo De Desarrollo
+
+### Sistema Bancario Bankify - Implementación TDD
+
+Se desarrolló un sistema bancario siguiendo **TDD (Test-Driven Development)** con el ciclo **Rojo -> Verde -> Refactor**.
+
+#### Clases Principales
+
+- **`Banco`** - Entidad bancaria con código y validación
+- **`Cliente`** - Cliente con ID y múltiples cuentas  
+- **`Cuenta`** - Cuenta con saldo e historial
+- **`Bankify`** - Gestor principal del sistema
+- **`Transaccion`** (Interface) - Operaciones bancarias
+- **`Consulta`, `Deposito`, `Retiro`** - Tipos de transacciones
+
+#### Principios SOLID Aplicados
+
+1. **SRP**: Cada clase tiene una responsabilidad única
+2. **OCP**: Se pueden agregar nuevos tipos de transacciones sin modificar código existente
+3. **LSP**: Todas las transacciones son intercambiables
+4. **ISP**: Interface `Transaccion` pequeña y cohesiva
+5. **DIP**: `Bankify` depende de abstracciones, no implementaciones
+
+#### Patrones de Diseño
+
+- **Strategy Pattern**: Interface `Transaccion` con diferentes implementaciones
+- **Command Pattern**: Transacciones como objetos ejecutables  
+- **Repository Pattern**: Métodos de búsqueda centralizados
+
+
+#### codigo de las pruebas 
+
+para ver completamente el codigo fuente de los test aplicados puede dar click en los siguientes enlaces
+
+- [BackityTest](src/test/java/edu/dosw/lab/Laboratorio_3_DOSW/BankifyTest.java)
+- [ClienteTest](src/test/java/edu/dosw/lab/Laboratorio_3_DOSW/ClienteTest.java)
+- [CuentaTest](src/test/java/edu/dosw/lab/Laboratorio_3_DOSW/CuentaTest.java)
+
+```java
+
+@BeforeEach
+    public void setUp() {
+        cliente1 = new Cliente(1, "Juan");
+        cliente2 = new Cliente(2, "Ana");
+
+        banco1 = new Banco("001", "Banco Uno");
+        banco2 = new Banco("002", "Banco Dos");
+
+        cuenta1 = new Cuenta("00123");
+        cuenta2 = new Cuenta("456");
+
+        banco1.agregarCuenta(cuenta1);  
+        banco2.agregarCuenta(cuenta2);  
+
+        List<Cliente> clientes = new ArrayList<>(Arrays.asList(cliente1, cliente2));
+        List<Banco> bancos = new ArrayList<>(Arrays.asList(banco1, banco2));
+
+        bankify = new Bankify(clientes, bancos);
+    }
+
+    @Test
+    public void testConstructorInicializaListas() {
+        assertNotNull(bankify);
+    }
+
+   
+    @Test
+    public void testAgregarCuentaAClienteCuentaVerificada() {
+
+        bankify.agregarCuentaACliente(cliente1, cuenta1);
+        assertTrue(cliente1.listarCuentas().contains(cuenta1));
+    }
+
+```
+
+captura de pruebas al inicio del tdd 
+
+
+![alt text](docs/imagenes/Parte4/Ciclo1/Red/img.png)
+
+
+captura de pruebas al final del desarrollo
+
+![alt text](docs/imagenes/Parte4/Ciclo1/Green/img.png)
+
 
