@@ -22,7 +22,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.release>17</maven.compiler.release>
-        <jacoco.skip>true</jacoco.skip>
+    <!-- Activar JaCoCo para generar reporte y validar cobertura -->
+    <jacoco.skip>false</jacoco.skip>
     </properties>
 
     <dependencies>
@@ -51,14 +52,17 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.12</version>
-                <configuration>
-                    <skip>${jacoco.skip}</skip>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <!-- Limita la instrumentación a clases del proyecto para evitar fallos con JDK 24 (major 68) -->
+                            <includes>
+                                <include>edu/dosw/lab/**</include>
+                            </includes>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>report</id>
@@ -66,6 +70,38 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>configurators/**</exclude>
+                            </excludes>
+                            <includes>
+                                <include>edu/dosw/lab/**</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>jacoco-check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <rule>
+                                    <element>PACKAGE</element>
+                                    <limits>
+                                        <limit>
+                                            <counter>CLASS</counter>
+                                            <value>COVEREDRATIO</value>
+                                            <minimum>0.85</minimum>
+                                        </limit>
+                                    </limits>
+                                </rule>
+                            </rules>
+                            <includes>
+                                <include>edu/dosw/lab/**</include>
+                            </includes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -79,6 +115,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- Permite ejecutar la aplicación con 'mvn exec:java'
+                 Por defecto levanta la app Spring Boot principal.
+                 Para ejecutar otra clase con main usar: -Dexec.mainClass=paquete.Clase -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <mainClass>edu.dosw.lab.Laboratorio_3_DOSW.Laboratorio3DoswApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

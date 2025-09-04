@@ -1,4 +1,4 @@
-# 📝 Laboratorio 03 –
+# 📝 Laboratorio 03 
 
 **Integrantes:**
 - Daniel Eduardo Useche
@@ -122,11 +122,6 @@ RETO #2: Diseñando
     En el Diagrama UML Astah
     ![UML](docs/UML/Diagrama_Reto2.asta)
 
-RETO #3 
-    Codigo en la carpeta 
-    ![Code](docs/Planning_Poker)
-
-    Evidencia de equipo: (Por hacer)
 
 ## Reto #3 – Planning Poker (Consola)
 
@@ -180,4 +175,49 @@ Si deseas omitir la instrumentación de cobertura (actualmente Jacoco está desa
 ```
 
 Cuando trabajes con JDK 17 puedes cambiarla a `false` para generar el informe de cobertura.
+
+## 📊 Cobertura de Código (JaCoCo)
+
+Se configuró JaCoCo con un umbral mínimo de 85% de instrucciones cubiertas. El reporte se genera en `target/site/jacoco/index.html` al ejecutar:
+
+```
+./mvnw clean verify
+```
+
+### Cobertura Inicial (Antes de agregar pruebas nuevas)
+
+- Instrucciones cubiertas: 58% (falló la regla >85%).
+- Paquete `edu.dosw.lab.Laboratorio_3_DOSW.reto3` sin cobertura (0%).
+- Imagen (captura inicial): `docs/imagenes/Parte1/Jacoco.jpeg` (o agregar nueva captura) 
+
+### Mejora Aplicada
+
+Se añadieron pruebas específicas para:
+- Transacciones (`Deposito`, `Retiro`, `Consulta`) validando `ejecutar()` e `informe()`.
+- Aplicación Planning Poker (`PlanningPokerApp`) simulando entrada de usuario y casos de validación de input.
+
+### Cobertura Final (Después de nuevas pruebas)
+
+Fragmento del reporte final (`index.html`):
+
+```
+Total Instrucciones: 683
+Instrucciones No Cubiertas: 79
+Cobertura Instrucciones: 88%
+Cobertura Branches: 78%
+Paquete base: 87% instrucciones
+Paquete reto3: 90% instrucciones
+```
+
+Se superó el umbral (BUILD SUCCESS).
+
+### Reflexión sobre los Casos Añadidos
+
+Los primeros tests ignoraban comportamiento “periférico” pero importante: 
+1. Métodos concretos de las implementaciones de `Transaccion` (solo se ejercitaban indirectamente algunas rutas de `Deposito` y `Retiro`, sin validar el `informe()` ni la actualización temporal de `Consulta`).
+2. La lógica interactiva de `PlanningPokerApp` (parsing de entradas inválidas, consenso iterativo y carga de historias desde recursos). Al no cubrir estos flujos, casi un tercio del código quedaba invisible para JaCoCo.
+
+Al introducir pruebas de caja blanca y simulación de `System.in` se validaron rutas de error y repetición (entradas inválidas) elevando la complejidad cubierta y asegurando que futuros cambios en la interfaz de consola rompan las pruebas si alteran la experiencia esperada.
+
+Esto demuestra que una cobertura >85% requirió identificar código “no ejercitado” más allá de la lógica central (dominio bancario) y atender también utilidades de entrada/salida y reporting.
 
