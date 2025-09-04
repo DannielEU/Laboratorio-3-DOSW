@@ -2,7 +2,6 @@ package edu.dosw.lab.Laboratorio_3_DOSW;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-@SpringBootTest
 public class BankifyTest {
 
     private Bankify bankify;
@@ -29,8 +27,8 @@ public class BankifyTest {
         banco1 = new Banco("001", "Banco Uno");
         banco2 = new Banco("002", "Banco Dos");
 
-        cuenta1 = new Cuenta("00123");
-        cuenta2 = new Cuenta("456");
+    cuenta1 = new Cuenta("0012345678");
+    cuenta2 = new Cuenta("0020000000");
 
         banco1.agregarCuenta(cuenta1);  // Banco 1 tiene cuenta1
         banco2.agregarCuenta(cuenta2);  // Banco 2 tiene cuenta2
@@ -51,8 +49,8 @@ public class BankifyTest {
     @Test
     public void testAgregarCuentaAClienteCuentaVerificada() {
 
-        bankify.agregarCuentaACliente(cliente1, cuenta1);
-        assertTrue(cliente1.listarCuentas().contains(cuenta1));
+    bankify.agregarCuentaACliente(cliente1, cuenta1);
+    assertTrue(cliente1.listarCuentas().contains(cuenta1));
     }
 
     @Test

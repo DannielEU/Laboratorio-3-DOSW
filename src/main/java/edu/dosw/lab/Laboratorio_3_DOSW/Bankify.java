@@ -25,8 +25,11 @@ public class Bankify {
     }
 
     public boolean verificarCuenta(Cuenta cuenta) {
-        return this.bancos.stream()
-                .anyMatch(banco -> banco.verificarCuenta(cuenta));
+        String numero = cuenta.getNumeroCuenta();
+        // Reglas: 10 dígitos y debe iniciar con el código completo de algún banco registrado
+        if (numero == null || numero.length() != 10) return false;
+        if (!numero.matches("\\d{10}")) return false;
+        return this.bancos.stream().anyMatch(b -> numero.startsWith(b.getCodigo()));
     }
 
     public void agregarCuentaACliente(Cliente cliente, Cuenta cuenta) throws IllegalArgumentException {

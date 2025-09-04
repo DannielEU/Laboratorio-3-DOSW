@@ -14,12 +14,12 @@ public class Retiro implements Transaccion {
 
     @Override
     public void ejecutar() {
-        cuenta.disminuirSaldo(monto);
+        cuenta.retirar(monto);
     }
 
     @Override
     public String informe() {
-        return "Se hizo un retiro de: " + this.monto + " en la fecha, " + fecha;
+        return "Se hizo un retiro de: " + this.monto + " en la fecha " + fecha;
     }
 
 }

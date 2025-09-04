@@ -13,11 +13,11 @@ public class Deposito implements Transaccion{
     }
     @Override
     public void ejecutar() {
-        this.cuenta.AumentarSaldo(this.monto);
+        this.cuenta.depositar(this.monto);
 
     }
     @Override
     public String informe() {
-        return "Se hizo un deposito de " + this.monto + " en la fecha, " + fecha;
+        return "Se hizo un deposito de " + this.monto + " en la fecha " + fecha;
     }
 }

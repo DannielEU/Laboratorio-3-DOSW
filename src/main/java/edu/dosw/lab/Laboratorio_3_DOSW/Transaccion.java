@@ -1,6 +1,8 @@
 package edu.dosw.lab.Laboratorio_3_DOSW;
 
 public interface Transaccion {
-    public void ejecutar();
-    public String informe();
+    /** Ejecuta la transacción aplicando sus efectos. */
+    void ejecutar();
+    /** Informe legible de la transacción. */
+    String informe();
 }

@@ -5,8 +5,13 @@ import java.util.List;
 
 public class Banco {
     private final String nombre;
-    private String codigo;
-    private List<Cuenta> cuentas = new ArrayList<>();
+    private final String codigo;
+    private final List<Cuenta> cuentas = new ArrayList<>();
+
+    /**
+     * @param codigo código del banco (2 dígitos)
+     * @param nombre nombre comercial
+     */
     public Banco(String codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
