@@ -159,3 +159,25 @@ Patrón / Principio aplicado:
 Captura de ejemplo de votación:
 ![Planning Poker Consola](docs/imagenes/Parte3/Reto3Example.jpeg)
 
+## ✅ Ejecutar Pruebas
+
+Para ejecutar todas las pruebas (unitarias, funcionales y de verificación del README):
+
+```
+./mvnw test
+```
+
+En PowerShell (Windows):
+
+```
+./mvnw test
+```
+
+Si deseas omitir la instrumentación de cobertura (actualmente Jacoco está desactivado por incompatibilidad con JDK 24), asegúrate de que en el `pom.xml` la propiedad:
+
+```
+<jacoco.skip>true</jacoco.skip>
+```
+
+Cuando trabajes con JDK 17 puedes cambiarla a `false` para generar el informe de cobertura.
+
